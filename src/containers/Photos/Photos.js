@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actions from '../../store/actions/index';
 
-import withErrorHandler from '../../hoc/withErrorHandler';
 import axios from '../../axios';
 
 import PhotoDetail from '../PhotoDetail/PhotoDetail';
@@ -21,79 +18,30 @@ const Container= styled.div `
 `;
 
 class Photos extends Component {
-  componentDidMount() {
-    this.props.onFetchAllPhotos();
-  }
-
-  state = {
-    layoutReady: false
-  }
-
-  handleLayoutReady = () => {
-		if (!this.state.layoutReady) {
-      this.setState({ 
-        layoutReady: true 
-      });
-		}
-	}
-
   render() {
+    const photos = [{
+      id: 1,
+      photoUrl: 'https://c1.staticflickr.com/7/6116/6334953021_7453f3f3d1_b.jpg',
+      avatarUrl: 'https://c1.staticflickr.com/7/6116/6334953021_7453f3f3d1_b.jpg',
+      displayName: 'rick',
+      userId: 'k3j4l3kj4'
+    }];
 
-    let photos = <Spin />;
-    if ( !this.props.loading ) {
-      // photos = knuthShuffle(this.props.photos);
-    }
-
-    const masonryOptions = {
-      transitionDuration: 0,
-      fitWidth: false
-    };
-
-    let photoDetails = <Spin />;
-    if ( !this.props.loading ) {
-      photoDetails = photos.map( photo =>
+    const photoDetails = photos.map( photo =>
         <PhotoDetail
           key={ photo.id }
           photo={ photo }
         />
       );
-    }
 
-    const masonry = (
+    const feed = (
       <Container>
-        <div style={{
-					visibility: (this.state.layoutReady)
-						? 'visible'
-						: 'hidden', 
-        }}>
-        <Masonry
-          elementType={'ul'}
-          options={ masonryOptions }
-          disableImagesLoaded={ false }
-					onLayoutComplete={this.handleLayoutReady}
-          updateOnEachImageLoad={ false }
-          >
           { photoDetails }
-        </Masonry>
-      </div>
       </Container>
     );
 
-    return masonry;
+    return feed;
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    photos: state.photos.photos,
-    loading: state.photos.loading,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onFetchAllPhotos: () => dispatch( actions.fetchAllPhotos() ),
-  };
-};
-
-export default connect( mapStateToProps, mapDispatchToProps )( withErrorHandler( Photos, axios ) );
+export default Photos
