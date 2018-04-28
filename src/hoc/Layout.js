@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Aux from './Aux';
 import { Layout as AntLayout, Menu, Icon } from 'antd';
 import styled from 'styled-components';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo.jpg';
 
 const { Header, Content, Footer, Sider } = AntLayout;
 
@@ -12,16 +12,14 @@ const Trigger = styled.div`
   font-size: 18px;
   line-height: 64px;
   padding: 0 24px;
-  cursor: pointer;
 }
 `;
 
 const Logo = styled.div`
-  height: 32px;
+  height: 20px;
   background: rgba(255,255,255,.2);
   margin: 16px;
   padding: 0 10px;
-  font-weight: bold;
 `;
 
 class Layout extends Component {
@@ -39,6 +37,7 @@ class Layout extends Component {
     return (
       <Aux>
         <AntLayout>
+
           <Sider
             trigger={null}
             collapsedWidth="0"
@@ -48,23 +47,23 @@ class Layout extends Component {
             onCollapse={(collapsed, type) => { }}
             collapsed={this.state.collapsed}>
             <Logo>
-              <Link to='/'><span><img style={{ maxWidth: "100px"}} src={logo} alt="ilford" /></span></Link>
+              <Link to='/'><span><img style={{ maxWidth: "87px"}} src={logo} alt="logo" /></span></Link>
             </Logo>
-
             <Menu theme="light" mode="inline" >
-              <Menu.Item key="1"><Link to='/films'><span>Films</span></Link></Menu.Item>
+              <Menu.Item key="1"><Link to='/profile'><span>Films</span></Link></Menu.Item>
             </Menu>
-
           </Sider>
 
-        <AntLayout style={{ height:"100vh" }}>
+          <AntLayout style={{ height:"100vh" }}>
             <Header style={{ background: '#fff', padding: 0 }}>
-              <Trigger>
+              <Trigger style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                 <Icon
                   type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                  onClick={this.toggle}/>
-                </Trigger>
+                  style={{cursor: 'pointer'}}
+                  onClick={this.toggle}/> LEICASNAPS
+              </Trigger>
             </Header>
+
             <Content style={{ textAlign: 'center' }}>
               <main>
                 {this.props.children}
